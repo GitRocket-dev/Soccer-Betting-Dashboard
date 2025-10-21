@@ -761,14 +761,26 @@ def main():
                     st.success(f"✅ Added €{add_amount:.2f} to bankroll!")
                     st.rerun()
         
+        
         with col2:
             st.subheader("Withdraw Funds")
             with st.form("withdraw_funds"):
-                withdraw_amount = st.number_input("Amount to Withdraw (€)", min_value=1.0, step=1.0, value=10.0, key="withdraw_amount", max_value=current_bankroll)
-                if st.form_submit_button("💸 Withdraw Funds", use_container_width=True):
-                    update_bankroll(withdraw_amount, "subtract")
-                    st.success(f"✅ Withdrew €{withdraw_amount:.2f} from bankroll!")
-                    st.rerun()
+                if current_bankroll > 0:
+                    withdraw_amount = st.number_input(
+                        "Amount to Withdraw (€)", 
+                        min_value=1.0, 
+                        step=1.0, 
+                        value=min(10.0, current_bankroll), 
+                        key="withdraw_amount", 
+                        max_value=current_bankroll
+                    )
+                    if st.form_submit_button("💸 Withdraw Funds", use_container_width=True):
+                        update_bankroll(withdraw_amount, "subtract")
+                        st.success(f"✅ Withdrew €{withdraw_amount:.2f} from bankroll!")
+                        st.rerun()
+                else:
+                    st.warning("💰 Bankroll is empty - cannot withdraw")
+                    st.form_submit_button("💸 Withdraw Funds", use_container_width=True, disabled=True)
         
         with col3:
             st.subheader("Set Bankroll")
