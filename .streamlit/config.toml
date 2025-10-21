@@ -1,0 +1,12 @@
+[theme]
+primaryColor = "#FF4B4B"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
+
+[server]
+headless = true
+
+# Add these lines for wider sidebar
+[global]
+sidebarWidth = 400  # Increase sidebar width (default is 276)
